@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="RT_THread学习进程, 张君韵 计算机 嵌入式">
+    <meta name="keywords" content="Git使用, 张君韵 计算机 嵌入式">
     <meta name="description" content="本科 | 计算机科学与技术 | 嵌入式">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>RT_THread学习进程 | 张君韵</title>
+    <title>Git使用 | 张君韵</title>
 
     <link rel="icon" type="image/jpeg" href="https://z3.ax1x.com/2021/08/12/f0vFHS.jpg">
 
@@ -510,12 +510,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928013251.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928020939.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">RT_THread学习进程</h1>
+                    <h1 class="description center-align post-title">Git使用</h1>
                 </div>
             </div>
         </div>
@@ -636,12 +636,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
-                            </a>
-                        
-                            <a href="/tags/RT-Thread/">
-                                <span class="chip bg-color">RT_Thread</span>
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
                             </a>
                         
                     </div>
@@ -665,28 +661,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-08
+                    2021-09-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-09-10
+                    2021-09-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    186
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    7 分
                 </div>
                 
 
@@ -704,21 +700,134 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
-<p> 学习RT_Thread一定要坚持下去啊，为了跳槽啊！！！！！</p>
-<h2 id="1、初识RT-Thread"><a href="#1、初识RT-Thread" class="headerlink" title="1、初识RT_Thread"></a>1、初识RT_Thread</h2><p>生活常见的：电视机顶盒、路由器、电冰箱、微波炉。</p>
-<p>嵌入式操作系统是应用在嵌入式系统的软件，对接嵌入式底层硬件与上层应用。在多任务管理、任务间通信、内存管理、定时器管理、设备管理。提供一套完整的机制，极大程度上便利嵌入式应用程序的开发、管理和维护</p>
-<p>诞生于2006年</p>
-<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ol>
-<li>MDK安装</li>
-<li>示例代码<ol>
-<li>src：RT_Thread内核代码文件</li>
-<li>libcpu：各类芯片/内核移植代码，比如STM</li>
-<li>include：RT_Thread内核头文件</li>
-<li>components：RT_Thread外部组件代码，比如Finsh、Lwip</li>
-</ol>
+                <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="git简介"><a href="#git简介" class="headerlink" title="git简介"></a>git简介</h2><p>Git有三大区（工作-Untracked、暂存-Unstaged、版本-Uncommited）</p>
+<h2 id="1-版本控制"><a href="#1-版本控制" class="headerlink" title="1.版本控制"></a>1.版本控制</h2><h3 id="本地版本控制"><a href="#本地版本控制" class="headerlink" title="本地版本控制"></a>本地版本控制</h3><p>个人使用本地存储</p>
+<h3 id="集中版本控制"><a href="#集中版本控制" class="headerlink" title="集中版本控制"></a>集中版本控制</h3><p>存储到服务器中，使用完上传到服务器中，需要时从服务器下载，有服务器奔溃风险</p>
+<h3 id="分布式版本控制"><a href="#分布式版本控制" class="headerlink" title="分布式版本控制"></a>分布式版本控制</h3><p>每个人拥有全部代码，可以存储在本地，有网时上传到服务器中</p>
+<h2 id="2-git和SVN的区别"><a href="#2-git和SVN的区别" class="headerlink" title="2.git和SVN的区别"></a>2.git和SVN的区别</h2><p>SVN是集中式版本控制系统，版本库集中放在服务器中，工作时从服务器更新到最新版本，完成工作后上传到服务器中，必须联网，对网络带宽要求高</p>
+<p>git是分布式版本控制系统，没有中央服务器，每个人的电脑就是一个完整的版本库，工作时不需联网，协同时，两人互相把修改的部分推送给对方，就可以看到对方的修改。可以看到对方修改了那些代码和文件</p>
+<h2 id="3-git命令"><a href="#3-git命令" class="headerlink" title="3.git命令"></a>3.git命令</h2><p>1.cd ..    回到文件上一级</p>
+<p>2.cd xx    到xx文件夹中</p>
+<p>3.pwd    显示当前目录</p>
+<p>4.clear    清屏</p>
+<p>5、ls    列出当前文件夹中的文件</p>
+<p>6、touch index.js    新建一个index.js文件</p>
+<p>7、rm index.js    移除一个index.js文件</p>
+<p>8、mkdir test    新建一个test文件夹</p>
+<p>9、rm -r test    删除掉test文件夹</p>
+<p>10、mv index.html test    把index.html文件移动到test文件夹中（在命令行中的文件）</p>
+<p>11、reset    重新初始化终端/清屏</p>
+<p>12、history    查看命令历史</p>
+<p>13、help    帮助</p>
+<p>14、exit    退出</p>
+<p>15、#    注释</p>
+<h2 id="4、Git配置"><a href="#4、Git配置" class="headerlink" title="4、Git配置"></a>4、Git配置</h2><p>1、git config –global –list    查看配置的用户名和邮箱</p>
+<p>2、git config –global user.name “xx”    设置用户名</p>
+<p>3、gitconfig –global user.email “xx”    设置用户邮箱</p>
+<h2 id="5、工作原理"><a href="#5、工作原理" class="headerlink" title="5、工作原理"></a>5、工作原理</h2><ol>
+<li><p>git本地有三个工作区，工作目录（working Directory)、暂存区（Stage/index）、资源库（Repository或git Directiory），加上远程的git仓库（Remote Directory）</p>
+<p>​                            </p>
+<table>
+<thead>
+<tr>
+<th align="center">git push（上传到服务）</th>
+<th align="center">Remote Directory（远程仓库）</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git commit（提交修改）</td>
+<td align="center">History（本地git仓库）</td>
+<td align="center">git pull（从服务器下拉代码）</td>
+</tr>
+<tr>
+<td align="center">git add files（添加文件）</td>
+<td align="center">Stage（index）（暂存区）</td>
+<td align="center">git reset（上一个版本）</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">Working Directory（本地文件）</td>
+<td align="center">git checkout（切换本地分支）</td>
+</tr>
+</tbody></table>
+<p>​            </p>
+<p>​                                        <img src="file:///F:\QQ\2094668015\Image\Group2\PX\J8\PXJ8XDLZ[`OMJSO@7]J_%[N.jpg" alt="img"></p>
+<p>​                                            </p>
+<p>​    git clone 网址，克隆网址东西</p>
 </li>
 </ol>
+<h2 id="6、git文件操作"><a href="#6、git文件操作" class="headerlink" title="6、git文件操作"></a>6、git文件操作</h2><p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210818150923660.png" alt="image-20210818150923660"></p>
+<h2 id="7、git的基本操作"><a href="#7、git的基本操作" class="headerlink" title="7、git的基本操作"></a>7、git的基本操作</h2><p>1、git add .    添加所有文件提交到暂存区</p>
+<p>2、git status    查看所有文件的状态</p>
+<p>3、git commit -m “new file hello.txt”    提交暂存区的文件到本地仓库    -m “xx”提交信息</p>
+<p>4、忽略文件</p>
+<p>​    #.txt    #忽略所有的.txt文件，.txt结尾的文件不会上传</p>
+<p>​    ！lib.txt    #但lib.txt文件除外</p>
+<p>​    /temp    #仅忽略项目根目录下的TODO文件，不包括其他目录temp</p>
+<p>​    build/    #忽略build/目录下的所有文件    （/在前面往上忽略，在后面往下忽略）</p>
+<p>​    doc/*.txt    #会忽略doc/notes.txt,但不包括doc/server/arch.txt</p>
+<h2 id="8、个人操作"><a href="#8、个人操作" class="headerlink" title="8、个人操作"></a>8、个人操作</h2><ol>
+<li>git init    初始化仓库</li>
+<li>git clone 网址    克隆网址上的仓库代码    无法克隆时去控制面板的凭据管理器的Windows凭据中找到其用户名和密码修改</li>
+<li>git config –global –list    查看配置的用户名和邮箱</li>
+<li>git config –global user.name “xx”    设置用户名</li>
+<li>gitconfig –global user.email “xx”    设置用户邮箱</li>
+<li>CD xx    进入克隆下来的文件中</li>
+<li>touch test.txt    新建test.txt文件            rm test.txt    移除一个test.txt文件</li>
+<li>mkdir test    新建一个test文件夹        rm -r test    删除掉test文件夹</li>
+<li>git add test.txt    添加test.txt文件到暂存区</li>
+<li>mv index.html test    把index.html文件移动到test文件夹中（在命令行中的文件）</li>
+<li>reset    重新初始化终端/清屏</li>
+<li>history    查看命令历史</li>
+<li>git commit -m “new test.txt”    多次git add后，提交形成记录，“new test.txt”为提交日志</li>
+<li>git status    查看未提交的文件</li>
+<li>git branch -a    查看所有分支，本地及远程分支</li>
+<li>git checkout -b xxx    以当前分支为基础新建立本地分支xxx</li>
+<li>git checkout -b xxx origin/xxx    以远程分支xxx为基础新建立本地分支xxx，本地分支名和远程分支名一致，不然推送不到远程服务器</li>
+<li>git checkout xxx    切换到本地其他分支，切换前要提交当前分支点改动</li>
+<li>git branch -D xxx    强制删除本地分支</li>
+<li>git push origin –delete xxx    删除远程服务器分支</li>
+<li>git pull origin xxx    从服务器分支更新代码到本地</li>
+<li>git push origin xxx    将数据上推到服务器分支中，上推前先将本地代码更新到最新版本</li>
+<li>git tag xx    建立本地标签</li>
+<li>git tag     查看本地所有标签</li>
+<li>git push origin –tags    把本地的所有文档推送到远程服务器</li>
+<li>git fetch    从远程服务器更新代码到本地，但不自动合并，执行后可以更新分支和tag</li>
+<li>git merge xxx    把本地分支xxx合并到当前分支</li>
+<li>echo “xxxxx” &gt;test.txt    在test.txt文件中写入数据xxxx</li>
+<li>修改git branch -a中显示出了的head指向-git remote set-head origin feature可将head指向feature</li>
+</ol>
+<h4 id="列出本地所有分支："><a href="#列出本地所有分支：" class="headerlink" title="列出本地所有分支："></a>列出本地所有分支：</h4><p>命令：git branch</p>
+<h4 id="创建一个新分支："><a href="#创建一个新分支：" class="headerlink" title="创建一个新分支："></a>创建一个新分支：</h4><p>命令：git branch 分支名称</p>
+<h4 id="删除指定本地分支："><a href="#删除指定本地分支：" class="headerlink" title="删除指定本地分支："></a>删除指定本地分支：</h4><p>命令：git branch -d 删除的分支名称    -D为强制删除，-d为正常操作情况下的删除。</p>
+<h2 id="命令大全"><a href="#命令大全" class="headerlink" title="命令大全"></a>命令大全</h2><p>ls -a    查看目录中的文件夹（蓝色）和文件（白色）</p>
+<p>git add &lt;文件名&gt;    将文件提交到暂存区</p>
+<p>git branch -a    查看本地及远程分支</p>
+<p>git branch -l    查看本地分支</p>
+<p>git branch -r    查看远程所有分支</p>
+<p>git checkout -b dev    建立一个新的本地分支dev</p>
+<p>git checkout dev    切换到本地dev</p>
+<p>git checkout -d master dev    删除本地库dev</p>
+<p>git checkout –track origin/dev    切换到远程dev分支</p>
+<p>git clone 网址    克隆网址上的仓库代码    无法克隆时去控制面板的凭据管理器的Windows凭据中找到其用户名和密码修改</p>
+<p>git commit -m “提交信息”    将暂存区的文件提交到本地仓库</p>
+<p>git diff branchname filepath    当前分支的文件与branchname分支的文件进行比较</p>
+<p>git diff commitld filepath    与某次提交进行比较</p>
+<p>git diff filepath    工作区与暂存区比较</p>
+<p>git diff HEAD filepath 工作区与HEAD（当前工作分支）比较</p>
+<p>git fetch    从远程获取最新版本到本地不会自动merge</p>
+<p>git log    查看git commit的日志，推出git log按下q即可</p>
+<p>git ls-files    显示出暂存区和工作区内的文件</p>
+<p>git merge origin/dev    将分支dev和当前分支合并g’i’tte’ch</p>
+<p>git pull    本地与服务器端同步</p>
+<p>git push origin master    将本地分支推送到服务器master分支上</p>
+<p>gti rm –cache 文件名    仅仅删除暂存区里的文件</p>
+<p>git rm -f 文件名    删除暂存区和工作区的文件</p>
+<p>git reset –soft 版本库ID    撤销已提交的版本库，不会修改暂存区和工作区</p>
+<p>git reset –mixed 版本库ID    撤销已提交的版本库和暂存区不会修改工作区</p>
+<p>git reset hard 版本库ID    彻底将工作区、暂存区和版本库记录恢复到指定的版本库</p>
+<p>git status    查看当前状态</p>
 
                 
             </div>
@@ -745,7 +854,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://tqoqt.github.io/posts/xuexi1.html">https://tqoqt.github.io/posts/xuexi1.html</a>
+                    <a href="https://tqoqt.github.io/posts/git.html">https://tqoqt.github.io/posts/git.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -783,12 +892,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
-                                </a>
-                            
-                                <a href="/tags/RT-Thread/">
-                                    <span class="chip bg-color">RT_Thread</span>
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
                                 </a>
                             
                         </div>
@@ -1260,52 +1365,50 @@ new Valine({
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/xuexi1.html">
+                <a href="/posts/keil1.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928013251.png" class="responsive-img" alt="RT_THread学习进程">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928020939.jpg" class="responsive-img" alt="keil等的开发环境">
                         
-                        <span class="card-title">RT_THread学习进程</span>
+                        <span class="card-title">keil等的开发环境</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            自己学习RT_Thread的一些进程。
+                            防止在新电脑上比较难布置开发环境特写此博客
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AF%87/" class="post-category">
-                                    学习篇
+                            <a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AF%87/" class="post-category">
+                                    开发环境篇
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="/tags/STM32CubeMX/">
+                        <span class="chip bg-color">STM32CubeMX</span>
                     </a>
                     
-                    <a href="/tags/RT-Thread/">
-                        <span class="chip bg-color">RT_Thread</span>
+                    <a href="/tags/keil/">
+                        <span class="chip bg-color">keil</span>
                     </a>
                     
                 </div>
@@ -1319,32 +1422,48 @@ new Valine({
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/0.html">
+                <a href="/posts/stm32001.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021815.jpg" class="responsive-img" alt="">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928014458.jpg" class="responsive-img" alt="四线模拟IIC点亮屏幕">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">四线模拟IIC点亮屏幕</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            主要是模拟IIC。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-02
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            张君韵
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AF%87/" class="post-category">
+                                    学习篇
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/STM32/">
+                        <span class="chip bg-color">STM32</span>
+                    </a>
+                    
+                    <a href="/tags/STM32CubeMX/">
+                        <span class="chip bg-color">STM32CubeMX</span>
+                    </a>
+                    
                 </div>
                 
             </div>
