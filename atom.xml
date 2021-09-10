@@ -6,7 +6,7 @@
   <link href="https://tqoqt.github.io/atom.xml" rel="self"/>
   
   <link href="https://tqoqt.github.io/"/>
-  <updated>2021-09-09T16:20:37.787Z</updated>
+  <updated>2021-09-10T15:56:35.264Z</updated>
   <id>https://tqoqt.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://tqoqt.github.io/posts/xuexi1.html"/>
     <id>https://tqoqt.github.io/posts/xuexi1.html</id>
     <published>2021-09-07T16:00:00.000Z</published>
-    <updated>2021-09-09T16:20:37.787Z</updated>
+    <updated>2021-09-10T15:56:35.264Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr><p> 学习RT_Thread一定要坚持下去啊，为了跳槽啊！！！！！</p><h2 id="1、初识RT-Thread"><a href="#1、初识RT-Thread" class="headerlink" title="1、初识RT_Thread"></a>1、初识RT_Thread</h2><p>生活常见的：电视机顶盒、路由器、电冰箱、微波炉。</p><p>嵌入式操作系统是应用在嵌入式系统的软件，对接嵌入式底层硬件与上层应用。在多任务管理、任务间通信、内存管理、定时器管理、设备管理。提供一套完整的机制，极大程度上便利嵌入式应用程序的开发、管理和维护</p><p>诞生于2006年</p><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ol><li>MDK安装</li><li>示例代码<ol><li>src：RT_Thread内核代码文件</li><li>libcpu：各类芯片/内核移植代码，比如STM</li><li>include：RT_Thread内核头文件</li><li>components：RT_Thread外部组件代码，比如Finsh、Lwip</li></ol></li></ol>]]></content>
     
