@@ -672,21 +672,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-09-16
+                    2021-10-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    9 分
                 </div>
                 
 
@@ -706,6 +706,7 @@
             <div id="articleContent">
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
 <p> 学习RT_Thread一定要坚持下去啊，为了跳槽啊！！！！！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261907685.png" alt="QQ002"></p>
 <h2 id="1、初识RT-Thread"><a href="#1、初识RT-Thread" class="headerlink" title="1、初识RT_Thread"></a>1、初识RT_Thread</h2><p>生活常见的：电视机顶盒、路由器、电冰箱、微波炉。</p>
 <p>嵌入式操作系统是应用在嵌入式系统的软件，对接嵌入式底层硬件与上层应用。在多任务管理、任务间通信、内存管理、定时器管理、设备管理。提供一套完整的机制，极大程度上便利嵌入式应用程序的开发、管理和维护</p>
 <p>诞生于2006年</p>
@@ -871,7 +872,23 @@ reboot           - Reboot System
 <h3 id="7、I-O设备管理"><a href="#7、I-O设备管理" class="headerlink" title="7、I/O设备管理"></a>7、I/O设备管理</h3><p>​    将PIN、I2C、SPI、USB、UART等作为外设设备，统一通过设备注册完成。实现了按名称访问的设备管理子系统，可按照统一的API界面访问硬件设备。在设备驱动接口上，根据嵌入式系统的特点，对不同的设备可以挂接相应的事件。当设备事件触发时，由驱动程序通知给上层的应用程序</p>
 <h2 id="内核启动流程"><a href="#内核启动流程" class="headerlink" title="内核启动流程"></a>内核启动流程</h2><p>RT-Thread 支持多种平台和多种编译器，而 rtthread_startup() 函数是 RT-Thread 规定的统一启动入口。一般执行顺序是：系统先从启动文件开始运行，然后进入 RT-Thread 的启动函数 rtthread_startup() ，最后进入用户入口函数 main()，如下图所示：</p>
 <p>​    <img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202109162218835.png" alt="启动流程"></p>
+<p> 流程在startup_stm32f10xxb.s中的entry中的rtthread_startup();可以查看到线程流程</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">tid = rt_thread_create("main", main_thread_entry, RT_NULL,
+                           RT_MAIN_THREAD_STACK_SIZE, RT_MAIN_THREAD_PRIORITY, 20);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
+<p>线程名字是main，线程ID是tid，线程执行函数是main_thread_entry，优先级是RT_MAIN_THRED_PRIORITY，栈的大小是RT_MAIN_THREAD_STACK_SIZE，</p>
+<h1 id="四、线程管理"><a href="#四、线程管理" class="headerlink" title="四、线程管理"></a>四、线程管理</h1><ol>
+<li>多任务是通过多线程方式实现，线程是任务的载体，是RTT中最基本的调度单位</li>
+<li>线程执行时的运行环境称为上下文，具体来说就是各种变量和数据，包括所有的寄存器变量、堆栈、内存信息等</li>
+<li>线程在运行的时候，它会认为自己独占CPU运行 </li>
+</ol>
+<h2 id="4-1、线程管理特点"><a href="#4-1、线程管理特点" class="headerlink" title="4.1、线程管理特点"></a>4.1、线程管理特点</h2><p>主要功能时对线程进行管理和调度，系统中总共存在两类线程，分别时<strong>系统线程</strong>和<strong>用户线程</strong>，重点放在用户线程</p>
+<ol>
+<li>系统线程时由RT_Thread内核创建的线程</li>
+<li>用户线程是由应用程序创建的线程</li>
+</ol>
+<p>两类线程都会从内核对象容器中分配线程对象，当线程呗删除时，也会被从对象容器中删除。</p>
+<h2 id="4-2、线程工作机制"><a href="#4-2、线程工作机制" class="headerlink" title="4.2、线程工作机制"></a>4.2、线程工作机制</h2><h3 id="4-2-1、线程控制块"><a href="#4-2-1、线程控制块" class="headerlink" title="4.2.1、线程控制块"></a>4.2.1、线程控制块</h3>
                 
             </div>
             <hr/>
@@ -1750,7 +1767,7 @@ new Valine({
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">8.5k</span>&nbsp;字
+                class="white-color">8.8k</span>&nbsp;字
             
             
             
