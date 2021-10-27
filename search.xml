@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title></title>
+      <link href="posts/dai-ma-gui-fan.html"/>
+      <url>posts/dai-ma-gui-fan.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h1><h2 id="1、总体原则"><a href="#1、总体原则" class="headerlink" title="1、总体原则"></a>1、总体原则</h2><ol><li>简洁明了</li><li>清晰</li><li>和原有风格保持一致</li></ol><h2 id="2、头文件"><a href="#2、头文件" class="headerlink" title="2、头文件"></a>2、头文件</h2><ol><li>头文件职责单一，切忌依赖复杂：如不能包含过多头文件</li><li>每一个C文件应有一个同名的H文件，用于声明需对外公开的接口</li><li>禁止头文件循环依赖，只能是单向依赖</li><li>禁止包含用不到的头文件</li><li>头文件应当自包含，不需要别的头文件才能编译</li><li>禁止在头文件中定义变量</li><li>只能通过包含头文件的方式使用其他C文件提供的接口，禁止在C文件中通过extern的方式使用外部函数接口、变量</li><li>禁止在extern “C”中包含头文件</li><li></li></ol><h2 id="3、函数"><a href="#3、函数" class="headerlink" title="3、函数"></a>3、函数</h2><ol><li>一个函数仅完成一个功能</li><li>重复代码应该尽可能提炼成函数</li><li>函数避免过长</li><li>函数代码嵌套过深（尽量不超过四层）</li><li>可重入函数（可能被多个任务并发调用的函数）避免使用共享变量；如需使用，则应通过互斥手段（关中断、信号量）对其加以保护</li><li>设计高扇入，合理扇出的函数（小于七）：扇出指一个函数直接调用（控制）其他函数的数目，扇入指有多少上级函数调用它</li><li>函数应避免使用全局变量、静态局部变量和I/O操作，不可避免的地方集中操作</li><li>函数的参数个数不超过5个</li></ol><h2 id="4、标识符命名与定义"><a href="#4、标识符命名与定义" class="headerlink" title="4、标识符命名与定义"></a>4、标识符命名与定义</h2><ol><li>标识符命名要清晰明了、尽量使用完整的单词或大家都能理解的缩写</li><li>除常用通用的缩写外，不得使用单词缩写和汉语拼音，尤其拼音缩写</li><li>命名风格内部要保持一致</li><li>用反义词命名具有互斥意义的变量或相反动作的函数</li><li>尽量避免名字中出现数字编号</li><li>标识符前不添加模块、项目、产品、部门等名称作为前缀</li><li>由于不同系统对文件名大小写处理会不同，所以代码文件命名建议统一采用全小写字母命名</li><li>除头文件或编译开关等特殊标识定义，宏定义不能使用下划线开头或结尾</li></ol><h2 id="5、变量"><a href="#5、变量" class="headerlink" title="5、变量"></a>5、变量</h2><ol><li>一个变量只能有一个功能，不能把一个变量用作多种用途</li><li>不用或少用全局变量</li><li>局部变量与全局变量不要同名</li><li>严禁使用未经初始化的变量作为右值</li><li>尽量减少没有必要的数据类型默认转换与强制转换</li></ol><h2 id="6、宏、常量"><a href="#6、宏、常量" class="headerlink" title="6、宏、常量"></a>6、宏、常量</h2><ol><li><p>用宏定义表达式时，要使用完备的括号</p></li><li><p>使用宏时，不允许参数发生变化</p></li><li><p>除非必要，应尽可能使用函数代替宏</p></li><li><p>常量建议使用const定义代替宏</p><pre class="line-numbers language-C" data-language="C"><code class="language-C">#define ASPECT_RATIO 1.653<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>编译器会永远也看不到ASPECT_RATIO这个符号名，因为在源码进入编译器之前，它会被预处理程序去掉，于是ASPECT_RATIO不会加入到符号列表中。如果涉及到这个常量的代码在编译时报错，就会很令人费解，因为报错信息指的是1.653，而不是ASPECT_RATIO。如果ASPECT_RATIO不是在你自己写的头文件中定义的，你就会奇怪1.653是从哪里来的，甚至会花时间跟踪下去。这个问题也会出现在符号调试器中，因为同样地，你所写的符号名不会出现在符号列表中。<br>解决这个问题的方案很简单：不用预处理宏，定义一个常量：</p><pre class="line-numbers language-C" data-language="C"><code class="language-C">const double ASPECT_RATIO = 1.653;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这种方法很有效，但有两个特殊情况要注意。首先，定义指针常量时会有点不同。因为常量定义一般是放在头文件中（许多源文件会包含它），除了指针所指的类型要定义成const外，重要的是指针也经常要定义成const。例如，要在头文件中定义一个基于char*的字符串常量，你要写两次const：</p><pre class="line-numbers language-C" data-language="C"><code class="language-C">const char * const authorName = "Scott Meyers";<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>宏定义中尽量不使用return、goto、continue、break等改变程序流程的语句</p></li></ol><h2 id="6、表达式"><a href="#6、表达式" class="headerlink" title="6、表达式"></a>6、表达式</h2><ol><li>函数调用不要作为另一个函数的参数使用，否则对于代码的调试、阅读都不利</li><li>赋值语句不要写在if等语句中，或作为函数的参数使用<ol><li>因为if语句中，会根据条件依次判断，如果前一个条件已经可以判定整个条件，则后续条件语句不会再运行，所以可能导致期望的部分赋值没有得到运行。</li></ol></li><li>用括号明确表达式的操作顺序，避免过分依赖默认优先级</li></ol><h2 id="7、注释"><a href="#7、注释" class="headerlink" title="7、注释"></a>7、注释</h2><ol><li>注释内容要清晰明了、含义准确，防止代码二义性</li><li>注释解释代码难以直接表达的意图，而不是重复描述代码</li><li>修改代码时，维护代码周边的所有注释，保持注释代码的一致性</li><li>文件头部应注释，注释必须列出：版权、版本号、生成日期、作者姓名、内容、功能说明、和其他文件的关系、修改日志</li><li>函数声明注释要描述函数的功能、性能及用法、输入和输出参数、函数返回值、可重入的要求</li><li>注释应放在代码上方或右方、不可放在下面，放在上方要和其上方代码用空行隔开</li><li>对于switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释</li><li>注释中避免使用缩写</li><li>严禁在一行代码或表达式的中间插入注释</li></ol><h2 id="8、排版与格式"><a href="#8、排版与格式" class="headerlink" title="8、排版与格式"></a>8、排版与格式</h2><ol><li>相对独立的程序块之间、变量说明之后必须加空行</li><li>多个短语局不允许写在同一行</li><li>if、for、do、while、case、switch、default等语句独占一行</li><li>操作符之间看情况加空格<ol><li>逗号“，”封号“；”只在后面加空格</li><li>比较操作符，赋值操作符“=”、“+=”，算数操作符“+”，“%”，逻辑操作符“&amp;&amp;”、“&amp;”，位域操作符“&lt;&lt;”、“^”等双目操作符的前后加空格</li><li>“!”、”~”、”++”、”–”、“&amp;”等单目操作符前后不加空格</li><li>“-&gt;”、“.”前后不加空格</li><li>if、for、while、switch等与后面的括号间应加空格，师关键字更为突出、明显</li><li>注释符（包括/**/、//）与注释内容之间要用一个空格进行分隔</li></ol></li><li>源程序中关系较为紧密的代码应尽可能相邻</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习篇 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 代码规范 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RT_Thread</title>
       <link href="posts/rtt1.html"/>
       <url>posts/rtt1.html</url>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo之渲染绕过, 张君韵 计算机 嵌入式">
+    <meta name="keywords" content="张君韵 计算机 嵌入式">
     <meta name="description" content="本科 | 计算机科学与技术 | 嵌入式">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo之渲染绕过 | 张君韵</title>
+    <title>张君韵</title>
 
     <link rel="icon" type="image/jpeg" href="https://z3.ax1x.com/2021/08/12/f0vFHS.jpg">
 
@@ -510,12 +510,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928015500.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021815.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo之渲染绕过</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -636,12 +636,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Hexo/">
-                                <span class="chip bg-color">Hexo</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%B8%B2%E6%9F%93%E7%BB%95%E8%BF%87/">
-                                <span class="chip bg-color">渲染绕过</span>
+                            <a href="/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+                                <span class="chip bg-color">代码规范</span>
                             </a>
                         
                     </div>
@@ -652,8 +648,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%AF%87/" class="post-category">
-                                博客篇
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AF%87/" class="post-category">
+                                学习篇
                             </a>
                         
                     </div>
@@ -665,28 +661,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-28
+                    2021-10-27
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-13
+                    2021-10-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    463
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -704,46 +700,102 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="0x001-Hexo-渲染"><a href="#0x001-Hexo-渲染" class="headerlink" title="0x001 Hexo 渲染"></a>0x001 Hexo 渲染</h3><p>  在Hexo部署时会默认渲染source下的所有html页面，但有时候想在Hexo博客上单独自定义html页面或README.md时，却不希望被Hexo渲染。因此对某个文件或者目录进行排除渲染是非常必要的。</p>
-<h3 id="0x002-方法一：font-matter"><a href="#0x002-方法一：font-matter" class="headerlink" title="0x002 方法一：font matter"></a>0x002 方法一：font matter</h3><p><code>Hexo</code>新建网站页面，然后将你的代码直接写入 <code>index.md</code> 中</p>
-<p>在 <code>Front matter</code> 中添加 <code>layout: false</code>，此方法适用于单一的纯<code>HTML</code><br><code>CSS</code> 页面。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">---
-title: tools
-date: <span class="token number">2020</span>-04-28 00:00:00
-type: <span class="token string">"tools"</span>
-layout: <span class="token boolean">false</span>
----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h1><h2 id="1、总体原则"><a href="#1、总体原则" class="headerlink" title="1、总体原则"></a>1、总体原则</h2><ol>
+<li>简洁明了</li>
+<li>清晰</li>
+<li>和原有风格保持一致</li>
+</ol>
+<h2 id="2、头文件"><a href="#2、头文件" class="headerlink" title="2、头文件"></a>2、头文件</h2><ol>
+<li>头文件职责单一，切忌依赖复杂：如不能包含过多头文件</li>
+<li>每一个C文件应有一个同名的H文件，用于声明需对外公开的接口</li>
+<li>禁止头文件循环依赖，只能是单向依赖</li>
+<li>禁止包含用不到的头文件</li>
+<li>头文件应当自包含，不需要别的头文件才能编译</li>
+<li>禁止在头文件中定义变量</li>
+<li>只能通过包含头文件的方式使用其他C文件提供的接口，禁止在C文件中通过extern的方式使用外部函数接口、变量</li>
+<li>禁止在extern “C”中包含头文件</li>
+<li></li>
+</ol>
+<h2 id="3、函数"><a href="#3、函数" class="headerlink" title="3、函数"></a>3、函数</h2><ol>
+<li>一个函数仅完成一个功能</li>
+<li>重复代码应该尽可能提炼成函数</li>
+<li>函数避免过长</li>
+<li>函数代码嵌套过深（尽量不超过四层）</li>
+<li>可重入函数（可能被多个任务并发调用的函数）避免使用共享变量；如需使用，则应通过互斥手段（关中断、信号量）对其加以保护</li>
+<li>设计高扇入，合理扇出的函数（小于七）：扇出指一个函数直接调用（控制）其他函数的数目，扇入指有多少上级函数调用它</li>
+<li>函数应避免使用全局变量、静态局部变量和I/O操作，不可避免的地方集中操作</li>
+<li>函数的参数个数不超过5个</li>
+</ol>
+<h2 id="4、标识符命名与定义"><a href="#4、标识符命名与定义" class="headerlink" title="4、标识符命名与定义"></a>4、标识符命名与定义</h2><ol>
+<li>标识符命名要清晰明了、尽量使用完整的单词或大家都能理解的缩写</li>
+<li>除常用通用的缩写外，不得使用单词缩写和汉语拼音，尤其拼音缩写</li>
+<li>命名风格内部要保持一致</li>
+<li>用反义词命名具有互斥意义的变量或相反动作的函数</li>
+<li>尽量避免名字中出现数字编号</li>
+<li>标识符前不添加模块、项目、产品、部门等名称作为前缀</li>
+<li>由于不同系统对文件名大小写处理会不同，所以代码文件命名建议统一采用全小写字母命名</li>
+<li>除头文件或编译开关等特殊标识定义，宏定义不能使用下划线开头或结尾</li>
+</ol>
+<h2 id="5、变量"><a href="#5、变量" class="headerlink" title="5、变量"></a>5、变量</h2><ol>
+<li>一个变量只能有一个功能，不能把一个变量用作多种用途</li>
+<li>不用或少用全局变量</li>
+<li>局部变量与全局变量不要同名</li>
+<li>严禁使用未经初始化的变量作为右值</li>
+<li>尽量减少没有必要的数据类型默认转换与强制转换</li>
+</ol>
+<h2 id="6、宏、常量"><a href="#6、宏、常量" class="headerlink" title="6、宏、常量"></a>6、宏、常量</h2><ol>
+<li><p>用宏定义表达式时，要使用完备的括号</p>
+</li>
+<li><p>使用宏时，不允许参数发生变化</p>
+</li>
+<li><p>除非必要，应尽可能使用函数代替宏</p>
+</li>
+<li><p>常量建议使用const定义代替宏</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#define ASPECT_RATIO 1.653<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="0x003-方法二：skip-render"><a href="#0x003-方法二：skip-render" class="headerlink" title="0x003 方法二：skip render"></a>0x003 方法二：skip render</h3><p>在博客根目录下的 <code>_config.yml</code>，找到 <code>skip_render</code>，大概在32行左右，写入你想要的跳过渲染的路径，注意缩进和空格。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 指定目录跳过hexo渲染</span>
-skip_render:
-  - <span class="token string">'tools/*'</span>
-  - <span class="token string">'tools/**'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译器会永远也看不到ASPECT_RATIO这个符号名，因为在源码进入编译器之前，它会被预处理程序去掉，于是ASPECT_RATIO不会加入到符号列表中。如果涉及到这个常量的代码在编译时报错，就会很令人费解，因为报错信息指的是1.653，而不是ASPECT_RATIO。如果ASPECT_RATIO不是在你自己写的头文件中定义的，你就会奇怪1.653是从哪里来的，甚至会花时间跟踪下去。这个问题也会出现在符号调试器中，因为同样地，你所写的符号名不会出现在符号列表中。<br>解决这个问题的方案很简单：不用预处理宏，定义一个常量：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">const double ASPECT_RATIO = 1.653;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<blockquote>
-<p>注释：<code>tools/*</code> 表示在目录 <code>source/fireworks</code> 下的文件全部跳过渲染，<code>tools/**</code> 表示在博客根目录 <code>source/tools/</code> 文件夹下的文件全部跳过渲染（例如页面的 js、css 在另一个文件夹中）。</p>
-</blockquote>
-<h3 id="0x004-案例：webstack-导航"><a href="#0x004-案例：webstack-导航" class="headerlink" title="0x004 案例：webstack 导航"></a>0x004 案例：webstack 导航</h3><p><code>webstack</code>是一个纯静态的网址导航网站，内容均由<code>viggo</code>收集并整理。项目基于<code>bootstrap</code>前端框架开发。</p>
-<p><img src="https://camo.githubusercontent.com/41111c4c1d9922982f380566e6a2f8415204c52c/687474703a2f2f7777772e776562737461636b2e63632f6173736574732f696d616765732f707265766965772e676966" alt="image"></p>
-<ul>
-<li>Github：<a target="_blank" rel="noopener" href="https://github.com/WebStackPage/WebStackPage.github.io">https://github.com/WebStackPage/WebStackPage.github.io</a></li>
-</ul>
-<p>在博客根目录 <code>source/</code>下新建<code>tools</code>，然后新建<code>index.html</code>,将<code>webstack</code>网页源码全选复制粘贴到里面。</p>
-<ul>
-<li>本站的webstack源码：<a href="view-source:http://luckyzmj.cn/tools/">view-source:http://luckyzmj.cn/tools/</a></li>
-</ul>
-<blockquote>
-<p>注意：将源码里的部分信息以及跳转链接按照你真实个人博客的环境进行修改。</p>
-</blockquote>
-<p>然后打开博客根目录下配置文件<code>_config.yml</code>，找到<code>skip_render</code>，做如下修改：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">skip_render:
-  - <span class="token string">'tools/*'</span>
-  - <span class="token string">'tools/**'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>最后执行<code>hexo clean</code>和<code>hexo s -g </code>本地预览，检查无误后<code>hexo g -d</code>部署到服务器上即可。</p>
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://xiabor.com/2020/04/21/hexo3/#%E5%A6%82%E4%BD%95%E8%B7%B3%E8%BF%87hexo%E7%9A%84%E6%B8%B2%E6%9F%93">https://xiabor.com/2020/04/21/hexo3/#%E5%A6%82%E4%BD%95%E8%B7%B3%E8%BF%87hexo%E7%9A%84%E6%B8%B2%E6%9F%93</a></li>
-</ul>
+<p>这种方法很有效，但有两个特殊情况要注意。首先，定义指针常量时会有点不同。因为常量定义一般是放在头文件中（许多源文件会包含它），除了指针所指的类型要定义成const外，重要的是指针也经常要定义成const。例如，要在头文件中定义一个基于char*的字符串常量，你要写两次const：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">const char * const authorName = "Scott Meyers";<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>宏定义中尽量不使用return、goto、continue、break等改变程序流程的语句</p>
+</li>
+</ol>
+<h2 id="6、表达式"><a href="#6、表达式" class="headerlink" title="6、表达式"></a>6、表达式</h2><ol>
+<li>函数调用不要作为另一个函数的参数使用，否则对于代码的调试、阅读都不利</li>
+<li>赋值语句不要写在if等语句中，或作为函数的参数使用<ol>
+<li>因为if语句中，会根据条件依次判断，如果前一个条件已经可以判定整个条件，则后续条件语句不会再运行，所以可能导致期望的部分赋值没有得到运行。</li>
+</ol>
+</li>
+<li>用括号明确表达式的操作顺序，避免过分依赖默认优先级</li>
+</ol>
+<h2 id="7、注释"><a href="#7、注释" class="headerlink" title="7、注释"></a>7、注释</h2><ol>
+<li>注释内容要清晰明了、含义准确，防止代码二义性</li>
+<li>注释解释代码难以直接表达的意图，而不是重复描述代码</li>
+<li>修改代码时，维护代码周边的所有注释，保持注释代码的一致性</li>
+<li>文件头部应注释，注释必须列出：版权、版本号、生成日期、作者姓名、内容、功能说明、和其他文件的关系、修改日志</li>
+<li>函数声明注释要描述函数的功能、性能及用法、输入和输出参数、函数返回值、可重入的要求</li>
+<li>注释应放在代码上方或右方、不可放在下面，放在上方要和其上方代码用空行隔开</li>
+<li>对于switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释</li>
+<li>注释中避免使用缩写</li>
+<li>严禁在一行代码或表达式的中间插入注释</li>
+</ol>
+<h2 id="8、排版与格式"><a href="#8、排版与格式" class="headerlink" title="8、排版与格式"></a>8、排版与格式</h2><ol>
+<li>相对独立的程序块之间、变量说明之后必须加空行</li>
+<li>多个短语局不允许写在同一行</li>
+<li>if、for、do、while、case、switch、default等语句独占一行</li>
+<li>操作符之间看情况加空格<ol>
+<li>逗号“，”封号“；”只在后面加空格</li>
+<li>比较操作符，赋值操作符“=”、“+=”，算数操作符“+”，“%”，逻辑操作符“&amp;&amp;”、“&amp;”，位域操作符“&lt;&lt;”、“^”等双目操作符的前后加空格</li>
+<li>“!”、”~”、”++”、”–”、“&amp;”等单目操作符前后不加空格</li>
+<li>“-&gt;”、“.”前后不加空格</li>
+<li>if、for、while、switch等与后面的括号间应加空格，师关键字更为突出、明显</li>
+<li>注释符（包括/**/、//）与注释内容之间要用一个空格进行分隔</li>
+</ol>
+</li>
+<li>源程序中关系较为紧密的代码应尽可能相邻</li>
+</ol>
 
                 
             </div>
@@ -752,41 +804,6 @@ skip_render:
             
 
     <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        文章作者:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Luckey</a>
-                </span>
-            </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        文章链接:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="https://tqoqt.github.io/posts/17fd92ae.html">https://tqoqt.github.io/posts/17fd92ae.html</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        版权声明:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Luckey</a>
-                    !
-                </span>
-            </div>
         
     </div>
 
@@ -808,12 +825,8 @@ skip_render:
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Hexo/">
-                                    <span class="chip bg-color">Hexo</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%B8%B2%E6%9F%93%E7%BB%95%E8%BF%87/">
-                                    <span class="chip bg-color">渲染绕过</span>
+                                <a href="/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+                                    <span class="chip bg-color">代码规范</span>
                                 </a>
                             
                         </div>
@@ -1285,29 +1298,30 @@ new Valine({
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/stm32001.html">
+                <a href="/posts/dai-ma-gui-fan.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928014458.jpg" class="responsive-img" alt="四线模拟IIC点亮屏幕">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021815.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">四线模拟IIC点亮屏幕</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            主要是模拟IIC。
+                            代码规范
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1320,15 +1334,12 @@ new Valine({
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/STM32/">
-                        <span class="chip bg-color">STM32</span>
-                    </a>
-                    
-                    <a href="/tags/STM32CubeMX/">
-                        <span class="chip bg-color">STM32CubeMX</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+                        <span class="chip bg-color">代码规范</span>
                     </a>
                     
                 </div>
@@ -1342,31 +1353,31 @@ new Valine({
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/7a46f93c.html">
+                <a href="/posts/rtt1.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928020704.jpg" class="responsive-img" alt="PicGo+GitHub 图床搭建">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021332.jpg" class="responsive-img" alt="RT_Thread">
                         
-                        <span class="card-title">PicGo+GitHub 图床搭建</span>
+                        <span class="card-title">RT_Thread</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            使用 PicGo+jsdelivr+GitHub 打造最稳定可靠的免费图床。
+                            RTT学习开发
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-08
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%AF%87/" class="post-category">
-                                    博客篇
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             
@@ -1376,12 +1387,12 @@ new Valine({
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PicGo/">
-                        <span class="chip bg-color">PicGo</span>
+                    <a href="/tags/keil/">
+                        <span class="chip bg-color">keil</span>
                     </a>
                     
-                    <a href="/tags/GitHub%E5%9B%BE%E5%BA%8A/">
-                        <span class="chip bg-color">GitHub图床</span>
+                    <a href="/tags/RT-Thread/">
+                        <span class="chip bg-color">RT_Thread</span>
                     </a>
                     
                 </div>
