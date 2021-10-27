@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title></title>
+      <link href="posts/github.html"/>
+      <url>posts/github.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="github访问解决方法"><a href="#github访问解决方法" class="headerlink" title="github访问解决方法"></a>github访问解决方法</h1><h2 id="1、以管理员身份运行命令提示符"><a href="#1、以管理员身份运行命令提示符" class="headerlink" title="1、以管理员身份运行命令提示符"></a>1、以管理员身份运行命令提示符</h2><p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261937678.jpeg" alt="img"></p><p><u>优化方法：绕过DNS解析，直接在**<strong>本地绑定host</strong></u></p><h2 id="2、在站长工具查询GitHub-com"><a href="#2、在站长工具查询GitHub-com" class="headerlink" title="2、在站长工具查询GitHub.com"></a>2、<a href="**http://tool.chinaz.com/dns**">在站长工具</a>查询GitHub.com</h2><p>选择TTL值小的ＩＰ地址<img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261941353.jpeg" alt="img"></p><h2 id="３、打开本地电脑的C-Windows-System32-drivers-etc目录，找到hosts文件"><a href="#３、打开本地电脑的C-Windows-System32-drivers-etc目录，找到hosts文件" class="headerlink" title="３、打开本地电脑的C:\Windows\System32\drivers\etc目录，找到ｈｏｓｔｓ文件"></a>３、打开本地电脑的C:\Windows\System32\drivers\etc目录，找到ｈｏｓｔｓ文件<img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261942429.jpeg" alt="img"></h2><h2 id="４、文本工具在最后面打开hosts文件"><a href="#４、文本工具在最后面打开hosts文件" class="headerlink" title="４、文本工具在最后面打开ｈｏｓｔｓ文件"></a>４、文本工具在最后面打开ｈｏｓｔｓ文件</h2><p>在最后一行添加查询到的IP地址</p><p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261943712.jpeg" alt="img"></p><h2 id="５、再在命令提示符中ping-GitHub．com"><a href="#５、再在命令提示符中ping-GitHub．com" class="headerlink" title="５、再在命令提示符中ｐｉｎｇ　GitHub．ｃｏｍ"></a>５、再在命令提示符中ｐｉｎｇ　GitHub．ｃｏｍ</h2><p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110261943653.jpeg" alt="img"></p><p>成功则会显示如此</p><p>最后网页打开速度会提高</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技巧篇 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GitHub </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RT_Thread</title>
       <link href="posts/rtt1.html"/>
       <url>posts/rtt1.html</url>
