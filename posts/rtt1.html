@@ -672,14 +672,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-26
+                    2021-10-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    2.7k
                 </div>
                 
 
@@ -887,8 +887,9 @@ reboot           - Reboot System
 <li>系统线程时由RT_Thread内核创建的线程</li>
 <li>用户线程是由应用程序创建的线程</li>
 </ol>
-<p>两类线程都会从内核对象容器中分配线程对象，当线程呗删除时，也会被从对象容器中删除。</p>
-<h2 id="4-2、线程工作机制"><a href="#4-2、线程工作机制" class="headerlink" title="4.2、线程工作机制"></a>4.2、线程工作机制</h2><h3 id="4-2-1、线程控制块"><a href="#4-2-1、线程控制块" class="headerlink" title="4.2.1、线程控制块"></a>4.2.1、线程控制块</h3>
+<p>两类线程都会从内核对象容器中分配线程对象，当线程被删除时，也会被从对象容器中删除。</p>
+<h2 id="4-2、线程工作机制"><a href="#4-2、线程工作机制" class="headerlink" title="4.2、线程工作机制"></a>4.2、线程工作机制</h2><h3 id="4-2-1、线程控制块"><a href="#4-2-1、线程控制块" class="headerlink" title="4.2.1、线程控制块"></a>4.2.1、线程控制块</h3><p>线程控制块由结构体struct rt_thread表示，是管理线程的一个数据结构，会存放线程的一些信息，例如优先级、线程名称、线程状态，也包含线程与线程之间连接用的链表结构，线程等待事件集合</p>
+
                 
             </div>
             <hr/>
@@ -1761,7 +1762,7 @@ new Valine({
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.6k</span>&nbsp;字
+                class="white-color">10.7k</span>&nbsp;字
             
             
             
