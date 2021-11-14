@@ -1,3 +1,6 @@
+https://tqoqt.github.io/posts/esp32.html
+https://tqoqt.github.io/posts/0.html
+https://tqoqt.github.io/posts/rtt1.html
 https://tqoqt.github.io/posts/dai-ma-gui-fan.html
 https://tqoqt.github.io/posts/github.html
 https://tqoqt.github.io/posts/rtt1.html

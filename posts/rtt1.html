@@ -40,9 +40,9 @@
       s.parentNode.insertBefore(hm, s);
     })();
     </script>
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="张君韵" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="张君韵" type="application/atom+xml">
 </head>
 
 
@@ -672,21 +672,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-27
+                    2021-10-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    6.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    26 分
                 </div>
                 
 
@@ -889,6 +889,604 @@ reboot           - Reboot System
 </ol>
 <p>两类线程都会从内核对象容器中分配线程对象，当线程被删除时，也会被从对象容器中删除。</p>
 <h2 id="4-2、线程工作机制"><a href="#4-2、线程工作机制" class="headerlink" title="4.2、线程工作机制"></a>4.2、线程工作机制</h2><h3 id="4-2-1、线程控制块"><a href="#4-2-1、线程控制块" class="headerlink" title="4.2.1、线程控制块"></a>4.2.1、线程控制块</h3><p>线程控制块由结构体struct rt_thread表示，是管理线程的一个数据结构，会存放线程的一些信息，例如优先级、线程名称、线程状态，也包含线程与线程之间连接用的链表结构，线程等待事件集合</p>
+<p> <strong><em>cleanup函数指针指向的函数，会在线程退出的时候，被idle线程回调一次，执行用户设置的清理现场等工作</em></strong></p>
+<h3 id="4-2-2、线程属性"><a href="#4-2-2、线程属性" class="headerlink" title="4.2.2、线程属性"></a>4.2.2、线程属性</h3><ol>
+<li>线程栈<ol>
+<li>RT_Thread线程具有独立的栈，当进行线程切换时，会将当前线程的上下文存在栈中，当线程要恢复运行时，再从栈中读取上下文信息，进行恢复</li>
+</ol>
+</li>
+<li>线程状态</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110272039860.png" alt="image-20211027203924158"></p>
+<ol>
+<li>线程优先级<ol>
+<li>最大支持256个线程优先级，数值越小优先级越高，0为最高优先级。资源紧张的系统中，可根据实际情况选择只支持8个或32个优先级的系统配置。</li>
+<li>Cortex-M系列中普遍采用32个优先级，最低优先级默认分配给空闲线程（<strong>idle</strong>）使用，用户一般不使用。在系统中，当有比当前线程优先级更高的线程就绪时，当前线程将立刻被换出，高优先级线程抢占处理器运行</li>
+</ol>
+</li>
+<li>时间片<ol>
+<li>每个线程都有时间片这个参数，但时间片仅对优先级相同的就绪态线程有效</li>
+</ol>
+</li>
+</ol>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a><strong>注意</strong></h4><p>​    如果一个线程中程序陷入死循环操作，则比它优先级低的线程都不能执行，所以在实时操作系统中必须注意：线程中不能陷入死循环操作，必须要有让出CPU使用权的动作，<u><strong>如循环中调用延时函数（进入挂起状态）或主动挂起</strong></u></p>
+<h3 id="4-2-3、线程状态之间切换"><a href="#4-2-3、线程状态之间切换" class="headerlink" title="4.2.3、线程状态之间切换"></a>4.2.3、线程状态之间切换</h3><p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110280949649.png" alt="线程状态转换图"></p>
+<h3 id="4-2-4、系统线程"><a href="#4-2-4、系统线程" class="headerlink" title="4.2.4、系统线程"></a>4.2.4、系统线程</h3><p>RT_Thread内核中的系统线程有空闲线程和主线程</p>
+<h2 id="4-3、线程相关操作"><a href="#4-3、线程相关操作" class="headerlink" title="4.3、线程相关操作"></a>4.3、线程相关操作</h2><p>创建/初始化、启动、运行、删除/脱离。</p>
+<p>动态线程：是系统自动从动态内存堆上分配空间和线程句柄（初始化heap之后才能使用create创建动态线程）</p>
+<p>静态线程：由用户分配栈空间与线程句柄</p>
+<p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202110280957492.png"></p>
+<h3 id="4-3-1、动态线程"><a href="#4-3-1、动态线程" class="headerlink" title="4.3.1、动态线程"></a>4.3.1、动态线程</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">rt_thread_t th1_ptr = NULL; //结构体
+变量接收返回值
+
+void th_entry(void *parameter)
+{
+    while(1){
+        rt_kprintf("th_entry running...\n");
+        rt_thread_mdelay(1000);
+    }
+
+
+}
+
+int main(void)
+{
+    //函数名称
+    //入口函数
+    //给线程入口函数传参
+    //线程栈的大小
+    //优先级
+    //系统滴答时间
+    th1_ptr = rt_thread_create("th_demo",
+                                th_entry,
+                                NULL,1024,
+                                 20,
+                                 5);
+    if (th1_ptr == RT_NULL) {
+        LOG_E("rt_thread_create failed...\n");
+    }
+    LOG_D("rt_thread_create successed...\n");
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C" data-language="C"><code class="language-C"> \ | /
+- RT -     Thread Operating System
+ / | \     4.0.3 build Oct 28 2021
+ 2006 - 2020 Copyright by rt-thread team
+[0m[D/main] rt_thread_create successed...
+[0m
+msh &gt;help
+RT-Thread shell commands:
+clear            - clear the terminal screen
+version          - show RT-Thread version information
+list_thread      - list thread
+list_sem         - list semaphore in system
+list_event       - list event in system
+list_mutex       - list mutex in system
+list_mailbox     - list mail box in system
+list_msgqueue    - list message queue in system
+list_mempool     - list memory pool in system
+list_timer       - list timer in system
+list_device      - list device in system
+help             - RT-Thread shell help.
+ps               - List threads in the system.
+free             - Show the memory usage in the system.
+reboot           - Reboot System
+
+msh &gt;list_thread
+thread   pri  status      sp     stack size max used left tick  error
+-------- ---  ------- ---------- ----------  ------  ---------- ---
+th_demo   20  init    0x00000040 0x00000400    06%   0x00000005 000
+tshell    20  running 0x000000c8 0x00001000    14%   0x0000000a 000
+tidle0    31  ready   0x00000070 0x00000100    57%   0x0000000c 000
+timer      4  suspend 0x0000007c 0x00000200    24%   0x00000009 000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>程序下载进去后，复位就可以看到打印出来的字符串，help查看命令，list_thread查看有哪些线程</p>
+<p>rt_thread_create（”线程名称“，入口函数，线程入口函数的传参，线程栈的大小，优先级，系统滴答时间）</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">rt_thread_t th1_ptr = NULL; //结构体变量接收返回值
+
+void th_entry(void *parameter)
+{
+    while(1){
+        rt_kprintf("th_entry running...\n");
+        rt_thread_mdelay(1000);
+    }
+
+
+}
+
+int main(void)
+{
+    //函数名称
+    //入口函数
+    //给线程入口函数传参
+    //线程栈的大小
+    //优先级
+    //系统滴答时间
+    th1_ptr = rt_thread_create("th_demo",
+                                th_entry,
+                                NULL,1024,
+                                 20,
+                                 5);
+    if (th1_ptr == RT_NULL) {
+        LOG_E("rt_thread_create failed...\n");
+        return RT_ENOMEM;
+    }
+    LOG_D("rt_thread_create successed...\n");
+    rt_thread_startup(th1_ptr);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C" data-language="C"><code class="language-C"> \ | /
+- RT -     Thread Operating System
+ / | \     4.0.3 build Oct 28 2021
+ 2006 - 2020 Copyright by rt-thread team
+[0m[D/main] rt_thread_create successed...
+[0m
+msh &gt;th_entry running...
+th_entry running...
+th_entry running...
+list_thread
+thread   pri  status      sp     stack size max used left tick  error
+-------- ---  ------- ---------- ----------  ------  ---------- ---
+th_demo   20  suspend 0x000000a8 0x00000400    20%   0x00000005 000
+tshell    20  running 0x000000c8 0x00001000    14%   0x00000004 000
+tidle0    31  ready   0x00000070 0x00000100    57%   0x00000002 000
+timer      4  suspend 0x0000007c 0x00000200    24%   0x00000009 000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因为打印th_entry running…时间是非常短的，大部分时间是在mdelay上，所以是处以挂起状态</p>
+<p>rt_thread_startup（线程创建后赋值的）</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>线程的名称；线程名称的最大长度由 rtconfig.h 中的宏 RT_NAME_MAX 指定，多余部分会被自动截掉</td>
+</tr>
+<tr>
+<td>entry</td>
+<td>线程入口函数</td>
+</tr>
+<tr>
+<td>parameter</td>
+<td>线程入口函数参数</td>
+</tr>
+<tr>
+<td>stack_size</td>
+<td>线程栈大小，单位是字节</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>线程的优先级。优先级范围根据系统配置情况（rtconfig.h 中的 RT_THREAD_PRIORITY_MAX 宏定义），如果支持的是 256 级优先级，那么范围是从 0~255，数值越小优先级越高，0 代表最高优先级</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>线程的时间片大小。时间片（tick）的单位是操作系统的时钟节拍。当系统中存在相同优先级线程时，这个参数指定线程一次调度能够运行的最大时间长度。这个时间片运行结束时，调度器自动选择下一个就绪态的同优先级线程进行运行</td>
+</tr>
+<tr>
+<td><strong>返回</strong></td>
+<td>——</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>线程创建成功，返回线程句柄</td>
+</tr>
+<tr>
+<td>RT_NULL</td>
+<td>线程创建失败</td>
+</tr>
+</tbody></table>
+<p>对于一些使用 rt_thread_create() 创建出来的线程，当不需要使用，或者运行出错时，我们可以使用下面的函数接口来从系统中把线程完全删除掉：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">rt_err_t <span class="token function">rt_thread_delete</span><span class="token punctuation">(</span>rt_thread_t thread<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>调用该函数后，线程对象将会被移出线程队列并且从内核对象管理器中删除，线程占用的堆栈空间也会被释放，收回的空间将重新用于其他的内存分配。实际上，用 rt_thread_delete() 函数删除线程接口，仅仅是把相应的线程状态更改为 RT_THREAD_CLOSE 状态，然后放入到 rt_thread_defunct 队列中；而真正的删除动作（释放线程控制块和释放线程栈）需要到下一次执行空闲线程时，由空闲线程完成最后的线程删除动作。线程删除 rt_thread_delete() 接口的参数和返回值见下表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thread</td>
+<td>要删除的线程句柄</td>
+</tr>
+<tr>
+<td><strong>返回</strong></td>
+<td>——</td>
+</tr>
+<tr>
+<td>RT_EOK</td>
+<td>删除线程成功</td>
+</tr>
+<tr>
+<td>-RT_ERROR</td>
+<td>删除线程失败</td>
+</tr>
+</tbody></table>
+<h3 id="4-3-2、启动线程"><a href="#4-3-2、启动线程" class="headerlink" title="4.3.2、启动线程"></a>4.3.2、启动线程</h3><p>创建（初始化）的线程状态处于初始状态，并未进入就绪线程的调度队列，我们可以在线程初始化 / 创建成功后调用下面的函数接口让该线程进入就绪态：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">rt_err_t <span class="token function">rt_thread_startup</span><span class="token punctuation">(</span>rt_thread_t thread<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>当调用这个函数时，将把线程的状态更改为就绪状态，并放到相应优先级队列中等待调度。如果新启动的线程优先级比当前线程优先级高，将立刻切换到这个线程。线程启动接口 rt_thread_startup() 的参数和返回值见下表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thread</td>
+<td>线程句柄</td>
+</tr>
+<tr>
+<td><strong>返回</strong></td>
+<td>——</td>
+</tr>
+<tr>
+<td>RT_EOK</td>
+<td>线程启动成功</td>
+</tr>
+<tr>
+<td>-RT_ERROR</td>
+<td>线程启动失败</td>
+</tr>
+</tbody></table>
+<h3 id="4-3-3、静态线程"><a href="#4-3-3、静态线程" class="headerlink" title="4.3.3、静态线程"></a>4.3.3、静态线程</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">rt_thread_t th1_ptr = NULL; //结构体变量接收返回值
+struct rt_thread th2;
+
+rt_uint8_t th_2_stack[512] = {0};
+
+void th1_entry(void *parameter)
+{
+    while(1){
+        rt_kprintf("th1_entry running...\n");
+        rt_thread_mdelay(1000);
+    }
+}
+
+void th2_entry(void *parameter)
+{
+    int i = 0;
+    for (i = 0; i &lt; 10; i++) {
+        rt_kprintf("th2_entry running...\n");
+//        rt_thread_mdelay(1000);
+    }
+}
+
+int main(void)
+{
+    int ret = 0;
+
+    //动态线程创建-&gt;函数名称、入口函数、给线程入口函数传参、线程栈的大小、优先级、系统滴答时间
+    th1_ptr = rt_thread_create("th1_demo",th1_entry,NULL,1024,20,5);
+    if (th1_ptr == RT_NULL) {
+        LOG_E("rt_thread_create failed...\n");
+        return RT_ENOMEM;
+    }
+    LOG_D("rt_thread_create succeed...\n");
+    rt_thread_startup(th1_ptr);
+
+    //静态线程初始化-&gt;线程对象、函数名称、入口函数、入口函数参数、线程栈起始地址、线程栈大小、优先级、系统滴答时间
+    ret = rt_thread_init(&amp;th2, "th2_demo", th2_entry , NULL, th_2_stack, sizeof(th_2_stack), 19, 5);
+    if (ret &lt; 0) {
+        LOG_E("rt_thread_init failed...\n");
+        return ret;
+    }
+    LOG_D("rt_thread_init succeed...\n");
+    rt_thread_startup(&amp;th2);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C" data-language="C"><code class="language-C"> \ | /
+- RT -     Thread Operating System
+ / | \     4.0.3 build Oct 28 2021
+ 2006 - 2020 Copyright by rt-thread team
+[0m[D/main] rt_thread_create succeed...
+[0m
+[0m[D/main] rt_thread_init succeed...
+[0m
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+th2_entry running...
+msh &gt;th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...
+th1_entry running...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注释th2_entry中的延时，则由于静态初始化的优先级更高会先打印十次，后面全部只会打印动态线程</p>
+<p>静态线程的线程句柄（或者说线程控制块指针）、线程栈由用户提供。静态线程是指线程控制块、线程运行栈一般都设置为全局变量，在编译时就被确定、被分配处理，内核不负责动态分配内存空间。需要注意的是，用户提供的栈首地址需做系统对齐（例如 ARM 上需要做 4 字节对齐）。线程初始化接口 rt_thread_init() 的参数和返回值见下表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thread</td>
+<td>线程句柄。线程句柄由用户提供出来，并指向对应的线程控制块内存地址</td>
+</tr>
+<tr>
+<td>name</td>
+<td>线程的名称；线程名称的最大长度由 rtconfig.h 中定义的 RT_NAME_MAX 宏指定，多余部分会被自动截掉</td>
+</tr>
+<tr>
+<td>entry</td>
+<td>线程入口函数</td>
+</tr>
+<tr>
+<td>parameter</td>
+<td>线程入口函数参数</td>
+</tr>
+<tr>
+<td>stack_start</td>
+<td>线程栈起始地址</td>
+</tr>
+<tr>
+<td>stack_size</td>
+<td>线程栈大小，单位是字节。在大多数系统中需要做栈空间地址对齐（例如 ARM 体系结构中需要向 4 字节地址对齐）</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>线程的优先级。优先级范围根据系统配置情况（rtconfig.h 中的 RT_THREAD_PRIORITY_MAX 宏定义），如果支持的是 256 级优先级，那么范围是从 0 ～ 255，数值越小优先级越高，0 代表最高优先级</td>
+</tr>
+<tr>
+<td>tick</td>
+<td>线程的时间片大小。时间片（tick）的单位是操作系统的时钟节拍。当系统中存在相同优先级线程时，这个参数指定线程一次调度能够运行的最大时间长度。这个时间片运行结束时，调度器自动选择下一个就绪态的同优先级线程进行运行</td>
+</tr>
+<tr>
+<td><strong>返回</strong></td>
+<td>——</td>
+</tr>
+<tr>
+<td>RT_EOK</td>
+<td>线程创建成功</td>
+</tr>
+<tr>
+<td>-RT_ERROR</td>
+<td>线程创建失败</td>
+</tr>
+</tbody></table>
+<p>对于用 rt_thread_init() 初始化的线程，使用 rt_thread_detach() 将使线程对象在线程队列和内核对象管理器中被脱离。线程脱离函数如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">rt_err_t <span class="token function">rt_thread_detach</span> <span class="token punctuation">(</span>rt_thread_t thread<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>线程脱离接口 rt_thread_detach() 的参数和返回值见下表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thread</td>
+<td>线程句柄，它应该是由 rt_thread_init 进行初始化的线程句柄。</td>
+</tr>
+<tr>
+<td><strong>返回</strong></td>
+<td>——</td>
+</tr>
+<tr>
+<td>RT_EOK</td>
+<td>线程脱离成功</td>
+</tr>
+<tr>
+<td>-RT_ERROR</td>
+<td>线程脱离失败</td>
+</tr>
+</tbody></table>
+<p>这个函数接口是和 rt_thread_delete() 函数相对应的， rt_thread_delete() 函数操作的对象是 rt_thread_create() 创建的句柄，而 rt_thread_detach() 函数操作的对象是使用 rt_thread_init() 函数初始化的线程控制块。同样，线程本身不应调用这个接口脱离线程本身。</p>
+<p><em><u><strong>空闲线程是一个线程状态永远为就绪态的线程，因此设置的钩子函数必须保证空闲线程在任何时刻都不会处于挂起状态，如rt_thread_delay()、rt_thread_take()等可能会导致线程挂起的函数都不能使用</strong></u></em></p>
+<h3 id="4-3-4、钩子函数"><a href="#4-3-4、钩子函数" class="headerlink" title="4.3.4、钩子函数"></a>4.3.4、钩子函数</h3><p>在整个系统的运行时，系统都处于线程运行、中断触发 - 响应中断、切换到其他线程，甚至是线程间的切换过程中，或者说系统的上下文切换是系统中最普遍的事件。有时用户可能会想知道在一个时刻发生了什么样的线程切换，可以通过调用下面的函数接口设置一个相应的钩子函数。在系统线程切换时，这个钩子函数将被调用：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">rt_scheduler_sethook</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>hook<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">rt_thread</span><span class="token operator">*</span> from<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">rt_thread</span><span class="token operator">*</span> to<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>复制错误复制成功<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>设置调度器钩子函数的输入参数如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th><strong>函数参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hook</td>
+<td>表示用户定义的钩子函数指针</td>
+</tr>
+</tbody></table>
+<p>钩子函数 hook() 的声明如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">hook</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">rt_thread</span><span class="token operator">*</span> from<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">rt_thread</span><span class="token operator">*</span> to<span class="token punctuation">)</span><span class="token punctuation">;</span>复制错误复制成功<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>调度器钩子函数 hook() 的输入参数如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th><strong>函数参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>from</td>
+<td>表示系统所要切换出的线程控制块指针</td>
+</tr>
+<tr>
+<td>to</td>
+<td>表示系统所要切换到的线程控制块指针</td>
+</tr>
+</tbody></table>
+<p>注：请仔细编写你的钩子函数，稍有不慎将很可能导致整个系统运行不正常（在这个钩子函数中，基本上不允许调用系统 API，更不应该导致当前运行的上下文挂起）。</p>
+<h3 id="4-3-5、设置调度器hook函数"><a href="#4-3-5、设置调度器hook函数" class="headerlink" title="4.3.5、设置调度器hook函数"></a>4.3.5、设置调度器hook函数</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">rt_thread_t th1_ptr = NULL; //结构体变量接收返回值
+struct rt_thread th2;
+
+rt_uint8_t th_2_stack[512] = {0};
+
+void th1_entry(void *parameter)
+{
+    int i = 0;
+    for (i = 0; i &lt; 5; ++i) {
+        rt_kprintf("th1_entry running...\n");
+        rt_thread_mdelay(1000);
+    }
+}
+
+void th2_entry(void *parameter)
+{
+    int i = 0;
+    for (i = 0; i &lt; 5; i++) {
+        rt_kprintf("th2_entry running...\n");
+        rt_thread_mdelay(1000);
+    }
+}
+
+void scheduler_hook(struct rt_thread *from, struct rt_thread *to)
+{
+    rt_kprintf("from:%s ---&gt; to:%s\n",from-&gt;name,to-&gt;name);
+}
+
+int main(void)
+{
+    int ret = 0;
+
+    rt_scheduler_sethook(scheduler_hook);
+
+    //动态线程创建-&gt;函数名称、入口函数、给线程入口函数传参、线程栈的大小、优先级、系统滴答时间
+    th1_ptr = rt_thread_create("th1_demo",th1_entry,NULL,1024,20,5);
+    if (th1_ptr == RT_NULL) {
+        LOG_E("rt_thread_create failed...\n");
+        return -RT_ENOMEM;
+    }
+    LOG_D("rt_thread_create succeed...\n");
+    rt_thread_startup(th1_ptr);
+
+    //静态线程初始化-&gt;线程对象、函数名称、入口函数、入口函数参数、线程栈起始地址、线程栈大小、优先级、系统滴答时间
+    ret = rt_thread_init(&amp;th2, "th2_demo", th2_entry , NULL, th_2_stack, sizeof(th_2_stack), 19, 5);
+    if (ret &lt; 0) {
+        LOG_E("rt_thread_init failed...\n");
+        return ret;
+    }
+    LOG_D("rt_thread_init succeed...\n");
+    rt_thread_startup(&amp;th2);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C" data-language="C"><code class="language-C"> \ | /
+- RT -     Thread Operating System
+ / | \     4.0.3 build Oct 28 2021
+ 2006 - 2020 Copyright by rt-thread team
+[0m[D/main] rt_thread_create succeed...
+[0m
+[0m[D/main] rt_thread_init succeed...
+[0m
+from:main ---&gt; to:th2_demo?
+th2_entry running...
+from:th2_demo? ---&gt; to:tshell
+msh &gt;from:tshell ---&gt; to:th1_demo
+th1_entry running...
+from:th1_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th2_demo?
+th2_entry running...
+from:th2_demo? ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th1_demo
+th1_entry running...
+from:th1_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th2_demo?
+th2_entry running...
+from:th2_demo? ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th1_demo
+th1_entry running...
+from:th1_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th2_demo?
+th2_entry running...
+from:th2_demo? ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th1_demo
+th1_entry running...
+from:th1_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th2_demo?
+th2_entry running...
+from:th2_demo? ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th1_demo
+th1_entry running...
+from:th1_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th2_demo?
+from:th2_demo ---&gt; to:tidle0
+from:tidle0 ---&gt; to:th1_demo
+from:th1_demo ---&gt; to:tidle0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="五、时钟管理"><a href="#五、时钟管理" class="headerlink" title="五、时钟管理"></a>五、时钟管理</h1><p>操作系统需要通过<strong>时间</strong>来规范其<strong>任务</strong></p>
+<h2 id="5-1、时钟节拍"><a href="#5-1、时钟节拍" class="headerlink" title="5.1、时钟节拍"></a>5.1、时钟节拍</h2><p>时钟节拍的长度可以根据RT_TICK_PER_SECOND的定义来调整。rtconfig.h配置文件中定义</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">/*
+*频率是1000hz周期是1/1000ms
+*所以节拍是1ms
+*/
+#define RT_TICK_PER_SECOND 1000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>系统滴答定时器中断处理函数（每1ms触发一次systick定时器中断）</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">/**
+ * This is the timer interrupt service routine.
+ *这是定时器中断服务程序
+ */
+void SysTick_Handler(void)
+{
+    /* enter interrupt */
+    rt_interrupt_enter();
+
+    HAL_IncTick();
+    rt_tick_increase();//++rt_tick;全局变量自加，记录的是系统从启动到现在的时间节拍数
+
+    /* leave interrupt */
+    rt_interrupt_leave();
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-2、获取系统节拍"><a href="#5-2、获取系统节拍" class="headerlink" title="5.2、获取系统节拍"></a>5.2、获取系统节拍</h2><h3 id="5-2-1、获取系统计数函数"><a href="#5-2-1、获取系统计数函数" class="headerlink" title="5.2.1、获取系统计数函数"></a>5.2.1、获取系统计数函数</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">/**
+ * This function will return current tick from operating system startup
+ *
+ * @return current tick
+ */
+rt_tick_t rt_tick_get(void)
+{
+    /* return the global tick */
+    return rt_tick;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int main(void)
+{
+    int i = 0;
+    rt_tick_t tick = 0;
+    for (i = 0; i &lt; 10; ++i) {
+        tick = rt_tick_get();
+        rt_kprintf("tick:%u\n",tick);
+        rt_thread_mdelay(500);//休眠500ms
+    }
+    return RT_EOK;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以打印出时钟节拍</p>
+<h2 id="5-3、定时器"><a href="#5-3、定时器" class="headerlink" title="5.3、定时器"></a>5.3、定时器</h2><p>定时器，是指从指定的时刻开始，经过一定的指定时间后触发一个事件，例如定个时间提醒第二天能够按时起床。定时器有<strong>硬件定时器</strong>和<strong>软件定时器</strong>之分：</p>
+<p>1）<strong>硬件定时器</strong>是芯片本身提供的定时功能。一般是由外部晶振提供给芯片输入时钟，芯片向软件模块提供一组配置寄存器，接受控制输入，到达设定时间值后芯片中断控制器产生时钟中断。硬件定时器的精度一般很高，可以达到纳秒级别，并且是中断触发方式。</p>
+<p>2）<strong>软件定时器</strong>是由操作系统提供的一类系统接口，它构建在硬件定时器基础之上，使系统能够提供不受数目限制的定时器服务。</p>
+<p>RT-Thread 操作系统提供软件实现的定时器，以时钟节拍（OS Tick）的时间长度为单位，即定时数值必须是 OS Tick 的整数倍，例如一个 OS Tick 是 10ms，那么上层软件定时器只能是 10ms，20ms，100ms 等，而不能定时为 15ms。RT-Thread 的定时器也基于系统的节拍，提供了基于节拍整数倍的定时能力。</p>
+<p><strong>HSE</strong>：外部时钟</p>
 
                 
             </div>
@@ -1762,7 +2360,7 @@ new Valine({
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.7k</span>&nbsp;字
+                class="white-color">16.7k</span>&nbsp;字
             
             
             
