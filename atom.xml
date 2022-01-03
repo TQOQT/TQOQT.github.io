@@ -6,7 +6,7 @@
   <link href="https://tqoqt.github.io/atom.xml" rel="self"/>
   
   <link href="https://tqoqt.github.io/"/>
-  <updated>2021-12-23T16:52:56.522Z</updated>
+  <updated>2022-01-03T15:18:52.722Z</updated>
   <id>https://tqoqt.github.io/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C语言进阶学习</title>
+    <link href="https://tqoqt.github.io/posts/c.html"/>
+    <id>https://tqoqt.github.io/posts/c.html</id>
+    <published>2022-01-03T01:00:00.000Z</published>
+    <updated>2022-01-03T15:18:52.722Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="1void-与-void"><a href="#1void-与-void" class="headerlink" title="1void 与 void*"></a><em>1</em>void 与 void*</h1><p>void表示的是无类型，不可以采用这个类型声明变量或常量，但是可以把指针定义为void类型，如void* ptr。</p><p>void指针可以指向任意类型的数据，可用任意数据类型的指针对void指针赋值，比如int *ptrInt；void *ptrVoid = ptrInt ;指针的赋值可以认为是地址的传递，而一般的32位系统指针都是占用4个字节，所以指针赋值仅仅只是这4个字节的赋值与类型没什么关系。</p><pre class="line-numbers language-none"><code class="language-none">void * memcpy( void *dest, const void *src, size_t len );void * memset( void * buffer, int c, size_t num);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h1 id="2volatile关键字"><a href="#2volatile关键字" class="headerlink" title="2volatile关键字"></a><em>2</em>volatile关键字</h1><p>volatile修饰表示变量是易变的，编译器中的优化器在用到这个变量时必须每次都小心地从内存中重新读取这个变量的值，而不是使用保存在寄存器里的备份，有效的防止编译器自动优化，从而与软件设计相符合。</p><h1 id="3数据占用大小"><a href="#3数据占用大小" class="headerlink" title="3数据占用大小"></a><em>3</em>数据占用大小</h1><p>数据占用大小是指不同的数据类型在平台中所占用的字节个数，不同的平台不同类型占用的字节个数稍有不同，不过在对应的平台进行开发过程中，必须要对每个数据类型的占用大小了如指掌，否则各种数据溢出，数据越界等等接踵而来。下面是简单罗列的一些数据占用情况:(在一般32位PC中)</p><table><thead><tr><th>char</th><th>8bit</th></tr></thead><tbody><tr><td>short</td><td>16bit</td></tr><tr><td>int</td><td>32bit</td></tr><tr><td>long</td><td>32bit</td></tr><tr><td>float</td><td>32bit</td></tr><tr><td>double</td><td>64bit</td></tr></tbody></table><h1 id="4const与指针"><a href="#4const与指针" class="headerlink" title="4const与指针"></a><em>4</em>const与指针</h1><p>const是恒定不变的意思，与指针的结合主要的问题是其const在指针中的位置导致该变量属性不同。主要的识别办法是去掉数据类型，看const修饰的是哪部分。</p><p>const int <em>ptr –&gt; const <em>ptr –&gt;那么const修饰的就是</em>ptr，而</em>ptr表示的是指针所指向内容，所以其总体也叫”常量指针”表示值无法改变。</p><p>int *const ptr –&gt; *const ptr –&gt;那么const修饰的就是ptr，而ptr表示的是指针变量，指针变量的值就是地址，所以总体也叫”指针常量”表示地址无法改变。</p><h1 id="5结构体与共联体"><a href="#5结构体与共联体" class="headerlink" title="5结构体与共联体"></a><em>5</em>结构体与共联体</h1><p>对于结构体和共联体在嵌入式领域是使用得非常频繁的，一些可编程芯片提供的寄存器库都是采用结构体和共联体结合的方式来提供给软件人员进行开发，同时在平时的编码过程中这两个数据类型的灵活应用也能够实现代码更好的封装与简化。</p><p>  如下面的简单示例，就可以非常灵活的访问Val中的bit位。</p><pre class="line-numbers language-none"><code class="language-none">typedef union{    BYTE Val;    struct __packed    {        BYTE b0:1;        BYTE b1:1;        BYTE b2:1;        BYTE b3:1;        BYTE b4:1;        BYTE b5:1;        BYTE b6:1;        BYTE b7:1;    } bits;}BYTE_VAL, BYTE_BITS;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="6预定义标识符"><a href="#6预定义标识符" class="headerlink" title="6预定义标识符"></a><em>6</em>预定义标识符</h1><p>一般编译器都支持预定义标识符，这些标识符结合printf等打印信息帮助程序员调试程序是非常有用的，一般编译器会自动根据用户指定完成替换和处理。</p><p>如下是常用的标识:</p><p><strong>FILE</strong> ：表示进行编译的源文件字符串；</p><p><strong>LINE</strong> ：表示当前文件的行号；</p><p>__DATE__：表示文件日期；</p><p><strong>TIME</strong> ：表示文件时间；</p><p>使用范例:</p><pre class="line-numbers language-none"><code class="language-none">printf("file:%s\n line:%d \n data:%s \n time: %s \n",__FILE__,__LINE__,__DATE__,__TIME__);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="7-与"><a href="#7-与" class="headerlink" title="7#与##"></a>7#与##</h1><p>#：是一种运算符，用于带参宏的文本替换，将跟在后面的参数转成一个字符串常量。</p><p>##：是一种运算符，是将两个运算对象连接在一起，也只能出现在带参宏定义的文本替换中。</p><pre class="line-numbers language-none"><code class="language-none">#define STR(s) #s #define COMB(str1,str2) str1##str2int main(){    int UART1= 57600;    printf("%d\n", COMB(UART, 1));        printf("%s\n", STR(3.1415));         return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="学习篇" scheme="https://tqoqt.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AF%87/"/>
+    
+    
+    <category term="C语言" scheme="https://tqoqt.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://tqoqt.github.io/posts/0.html"/>
+    <id>https://tqoqt.github.io/posts/0.html</id>
+    <published>2021-12-28T15:17:29.560Z</published>
+    <updated>2022-01-03T15:21:33.370Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="考编"><a href="#考编" class="headerlink" title="考编"></a>考编</h1><h2 id="一、近代史"><a href="#一、近代史" class="headerlink" title="一、近代史"></a>一、近代史</h2><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">graph LRA[侵略线]--&gt;B(第一次鸦片战争)A[侵略线]--&gt;C(第二次鸦片战争)A[侵略线]--&gt;D(甲午中日战争战争)A[侵略线]--&gt;E(八国联军侵华)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="1、时间线1840-gt-1919年5月4号-gt-1949"><a href="#1、时间线1840-gt-1919年5月4号-gt-1949" class="headerlink" title="1、时间线1840->1919年5月4号->1949"></a>1、时间线1840-&gt;1919年5月4号-&gt;1949</h3><p>1.1、五四运动之前为旧民主主义革命时期，</p><p>1.2、五四运动之后为新民主主义革命时期，</p><p>1.3、这么分是因为领导阶级的不同</p><h3 id="2、内容"><a href="#2、内容" class="headerlink" title="2、内容"></a>2、内容</h3><h3 id="2-1、侵略线"><a href="#2-1、侵略线" class="headerlink" title="2.1、侵略线"></a>2.1、侵略线</h3><p>​    2.1.1第一次鸦片战争(清政府-英国：1840，签订南京条约，近代史第一个不平等条约)</p><p>​    2.1.2第二次鸦片战争（清政府-英法联军：1856，北京、天津条约-》英法联军火烧圆明园）</p><p>​    2.1.3甲午中日战争（清政府-日本：马关条约）</p><p>​    2.1.4八国联军侵华（辛丑条约–庚子赔款）</p><h3 id="2-2、救亡线"><a href="#2-2、救亡线" class="headerlink" title="2.2、救亡线"></a>2.2、救亡线</h3><p>​    2.2.1、农民阶级（太平天国、义和团，农民阶级）</p><p>​    2.2.2、地主阶级（洋务运动）</p><p>​    2.2.3资产阶级改良（民族资产阶级-本地-》维新变法）</p><p>​    2.2.4、资产阶级革命（辛亥革命-孙中山的三民主义革命果实被窃取）</p><p>​    2.2.5无产阶级和党（  ）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title></title>
