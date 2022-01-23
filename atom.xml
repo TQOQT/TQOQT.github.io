@@ -6,7 +6,7 @@
   <link href="https://tqoqt.github.io/atom.xml" rel="self"/>
   
   <link href="https://tqoqt.github.io/"/>
-  <updated>2022-01-04T13:41:00.337Z</updated>
+  <updated>2022-01-23T10:08:38.662Z</updated>
   <id>https://tqoqt.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://tqoqt.github.io/posts/baiduwanpang.html"/>
+    <id>https://tqoqt.github.io/posts/baiduwanpang.html</id>
+    <published>2022-01-22T16:00:00.000Z</published>
+    <updated>2022-01-23T10:08:38.662Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h1><p>EDG、IDM、油猴</p><p>油猴：<a href="https://greasyfork.org/zh-CN">Greasy Fork - 安全、实用的用户脚本大全</a></p><p>IDM：链接：<a href="https://pan.baidu.com/s/1DwP_q5BwKhiin0WVUsMv4Q">https://pan.baidu.com/s/1DwP_q5BwKhiin0WVUsMv4Q</a><br>            提取码：1234</p><h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><p>油猴安装派派助手</p><h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>把要下载的保存到自己网盘，把UA复制到IDM选项中的位置，再新建任务，把直链复制开始下载。</p><p><img src="https://cdn.jsdelivr.net/gh/TQOQT/picgobed/img/202201231807892.png" alt="image-20220123180657150"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="技巧篇" scheme="https://tqoqt.github.io/categories/%E6%8A%80%E5%B7%A7%E7%AF%87/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>C语言进阶学习</title>
